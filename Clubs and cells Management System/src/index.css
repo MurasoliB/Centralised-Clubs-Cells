@@ -1,0 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    border-color: #a2a9b1;
+  }
+  .dark * {
+    border-color: #374151;
+  }
+  html, body {
+    @apply h-full w-full overflow-x-hidden;
+  }
+  body {
+    background-color: #f6f8fa;
+    color: #202122;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Lato, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+  }
+  .dark body {
+    background-color: #0b0f17;
+    color: #e5e7eb;
+  }
+
+  /* Classic Wikipedia Article Title & Headings */
+  h1, h2, h3, h4, h5, h6 {
+    color: #202122;
+    font-family: "Linux Libertine", Georgia, Times, serif;
+    font-weight: 500;
+  }
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: #f9fafb;
+  }
+
+  /* Classic Wikipedia Hyperlinks */
+  a, .wiki-link {
+    color: #0645ad;
+    text-decoration: none;
+    transition: color 0.1s ease;
+  }
+  a:hover, .wiki-link:hover {
+    text-decoration: underline;
+    color: #0b0080;
+  }
+  .dark a, .dark .wiki-link {
+    color: #6b9eff;
+  }
+  .dark a:hover, .dark .wiki-link:hover {
+    color: #9ac2ff;
+    text-decoration: underline;
+  }
+
+  code, kbd, samp, pre {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.9em;
+  }
+}
+
+/* Custom classic scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #111827;
+}
+::-webkit-scrollbar-thumb {
+  background: #c8ccd1;
+  border: 1px solid #a2a9b1;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #374151;
+  border: 1px solid #4b5563;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a2a9b1;
+}
+
+@layer components {
+  /* Classic Wikipedia Infobox / Box */
+  .wiki-card {
+    background-color: #ffffff;
+    border: 1px solid #a2a9b1;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  }
+  .dark .wiki-card {
+    background-color: #111827;
+    border-color: #374151;
+    box-shadow: none;
+  }
+
+  .wiki-card-header {
+    background-color: #eaecf0;
+    border-bottom: 1px solid #a2a9b1;
+    padding: 8px 12px;
+    font-weight: 700;
+    font-size: 13px;
+    color: #202122;
+  }
+  .dark .wiki-card-header {
+    background-color: #1f2937;
+    border-bottom-color: #374151;
+    color: #f3f4f6;
+  }
+
+  /* Classic Wikipedia Wikitable */
+  .wikitable {
+    background-color: #ffffff;
+    color: #202122;
+    border: 1px solid #a2a9b1;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  .wikitable th {
+    background-color: #eaecf0;
+    border: 1px solid #a2a9b1;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+    color: #202122;
+  }
+  .wikitable td {
+    border: 1px solid #a2a9b1;
+    padding: 6px 10px;
+    background-color: #ffffff;
+    font-size: 13px;
+  }
+  .wikitable tr:nth-child(even) td {
+    background-color: #f8f9fa;
+  }
+  .wikitable tr:hover td {
+    background-color: #eaf3ff;
+  }
+
+  .dark .wikitable {
+    background-color: #111827;
+    color: #e5e7eb;
+    border-color: #374151;
+  }
+  .dark .wikitable th {
+    background-color: #1f2937;
+    border-color: #374151;
+    color: #f9fafb;
+  }
+  .dark .wikitable td {
+    border-color: #374151;
+    background-color: #111827;
+    color: #e5e7eb;
+  }
+  .dark .wikitable tr:nth-child(even) td {
+    background-color: #1a2234;
+  }
+  .dark .wikitable tr:hover td {
+    background-color: #26334d;
+  }
+
+  /* Wikipedia Tab Buttons */
+  .wiki-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #0645ad;
+    background-color: #f8f9fa;
+    border: 1px solid #a2a9b1;
+    border-bottom: none;
+    margin-right: -1px;
+    text-decoration: none;
+    transition: all 0.1s;
+  }
+  .wiki-tab:hover {
+    background-color: #ffffff;
+    text-decoration: underline;
+    color: #0b0080;
+  }
+  .wiki-tab.active {
+    background-color: #ffffff;
+    color: #202122;
+    font-weight: 700;
+    border-top: 2px solid #0645ad;
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: -1px;
+    text-decoration: none;
+  }
+
+  .dark .wiki-tab {
+    background-color: #1f2937;
+    border-color: #374151;
+    color: #6b9eff;
+  }
+  .dark .wiki-tab:hover {
+    background-color: #111827;
+    color: #9ac2ff;
+  }
+  .dark .wiki-tab.active {
+    background-color: #111827;
+    color: #f9fafb;
+    border-top: 2px solid #6b9eff;
+    border-bottom: 1px solid #111827;
+  }
+}

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+        background-color: #ffffff;
+        color: #0f172a;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+    .diagram-container {
+        width: 1520px;
+        background: #ffffff;
+        border: 2px solid #0f172a;
+        padding: 30px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+        text-align: center;
+        border-bottom: 2px solid #0f172a;
+        padding-bottom: 16px;
+        margin-bottom: 25px;
+    }
+    .header h1 {
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #0f172a;
+        margin-bottom: 6px;
+    }
+    .header p {
+        font-size: 15px;
+        color: #475569;
+        font-weight: 500;
+    }
+    .diagram-body {
+        width: 100%;
+    }
+    .box {
+        background: #f8fafc;
+        border: 1.5px solid #1e293b;
+        border-radius: 6px;
+        padding: 12px;
+        text-align: center;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .box-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 4px;
+    }
+    .box-desc {
+        font-size: 11px;
+        color: #475569;
+        line-height: 1.3;
+    }
+    .layer-card {
+        border: 1.5px dashed #475569;
+        border-radius: 8px;
+        background: #f8fafc;
+        padding: 16px 20px;
+        margin-bottom: 20px;
+        position: relative;
+    }
+    .layer-badge {
+        position: absolute;
+        top: -12px;
+        left: 24px;
+        background: #0f172a;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 2px 14px;
+        border-radius: 4px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+</style>
+
+<style>
+    .split-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .pane-card {
+        border: 2px solid #0f172a;
+        border-radius: 8px;
+        background: #ffffff;
+        overflow: hidden;
+    }
+    .pane-header {
+        background: #0f172a;
+        color: #ffffff;
+        padding: 10px 16px;
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+    }
+    .pane-body {
+        padding: 18px;
+        background: #f8fafc;
+        min-height: 480px;
+    }
+    .club-card {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 14px;
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .club-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #0f172a;
+    }
+    .club-desc {
+        font-size: 11px;
+        color: #475569;
+        margin-top: 2px;
+    }
+    .btn-apply {
+        background: #0f172a;
+        color: #ffffff;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+    .roll-item {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 10px 14px;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .roll-name {
+        font-size: 12px;
+        font-weight: 700;
+        color: #0f172a;
+    }
+    .roll-reg {
+        font-size: 10px;
+        color: #64748b;
+        font-family: monospace;
+    }
+    .btn-present {
+        background: #166534;
+        color: #ffffff;
+        border: none;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 700;
+    }
+</style>
+</head>
+<body>
+<div class="diagram-container">
+    <div class="header">
+        <h1>Figure 4.2: Student and Faculty Interface</h1>
+        <p>Operational Panels: (Left) Student Discovery & RSVP Portal &bull; (Right) Faculty Mobile Attendance Roll-Call</p>
+    </div>
+    <div class="diagram-body">
+        <div class="split-grid">
+            <!-- STUDENT PANEL -->
+            <div class="pane-card">
+                <div class="pane-header">
+                    <span>👨‍🎓 Student Discovery & Membership Portal</span>
+                    <span>Role: Student</span>
+                </div>
+                <div class="pane-body">
+                    <div style="font-size: 12px; font-weight: 700; margin-bottom: 12px; color: #0f172a;">Active Campus Clubs & Cells Recruitment</div>
+                    <div class="club-card">
+                        <div>
+                            <div class="club-title">Coding Club (KEC)</div>
+                            <div class="club-desc">Competitive programming, hackathons & open source projects</div>
+                        </div>
+                        <button class="btn-apply">APPLIED (Pending)</button>
+                    </div>
+                    <div class="club-card">
+                        <div>
+                            <div class="club-title">Design Tribe</div>
+                            <div class="club-desc">UI/UX prototyping, graphic design & design thinking sprints</div>
+                        </div>
+                        <button class="btn-apply" style="background: #2563eb;">JOIN NOW</button>
+                    </div>
+                    <div class="club-card">
+                        <div>
+                            <div class="club-title">Institution's Innovation Council (IIC)</div>
+                            <div class="club-desc">Patenting, startup incubation & national innovation contests</div>
+                        </div>
+                        <button class="btn-apply" style="background: #2563eb;">JOIN NOW</button>
+                    </div>
+
+                    <div style="font-size: 12px; font-weight: 700; margin-top: 20px; margin-bottom: 10px; color: #0f172a;">My Registered Event Passes</div>
+                    <div style="background: #eff6ff; border: 1.5px dashed #3b82f6; border-radius: 6px; padding: 12px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 12px; font-weight: 700; color: #1e3a8a;">Web3 & Cloud Computing Summit</div>
+                            <div style="font-size: 10px; color: #3b82f6;">Date: Nov 18, 2026 &bull; CC-3 Hall &bull; Seat: A-42</div>
+                        </div>
+                        <div style="font-family: monospace; font-size: 11px; background: #fff; padding: 4px 8px; border-radius: 4px; font-weight: 700; border: 1px solid #93c5fd;">QR-PASS #8942</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FACULTY ROLL-CALL PANEL -->
+            <div class="pane-card">
+                <div class="pane-header">
+                    <span>👩‍🏫 Faculty Coordinator Live Roll-Call Console</span>
+                    <span>Event: Web3 Summit</span>
+                </div>
+                <div class="pane-body">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                        <div>
+                            <div style="font-size: 12px; font-weight: 700; color: #0f172a;">Live Attendee Check-In</div>
+                            <div style="font-size: 10px; color: #64748b;">Marked: 48 / 50 Present &bull; Venue: CC-3</div>
+                        </div>
+                        <button style="background: #0f172a; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-size: 10px; font-weight: 700;">GENERATE OD DOSSIER</button>
+                    </div>
+
+                    <div class="roll-item">
+                        <div>
+                            <div class="roll-name">SAHANA S</div>
+                            <div class="roll-reg">25ITR121 &bull; Department of IT</div>
+                        </div>
+                        <button class="btn-present">✓ PRESENT</button>
+                    </div>
+                    <div class="roll-item">
+                        <div>
+                            <div class="roll-name">SARAN KARTHIK S</div>
+                            <div class="roll-reg">25ITR128 &bull; Department of IT</div>
+                        </div>
+                        <button class="btn-present">✓ PRESENT</button>
+                    </div>
+                    <div class="roll-item">
+                        <div>
+                            <div class="roll-name">SHARAN V</div>
+                            <div class="roll-reg">25ITR134 &bull; Department of IT</div>
+                        </div>
+                        <button class="btn-present">✓ PRESENT</button>
+                    </div>
+                    <div class="roll-item">
+                        <div>
+                            <div class="roll-name">VIGNESH M</div>
+                            <div class="roll-reg">25ITR171 &bull; Department of IT</div>
+                        </div>
+                        <button class="btn-present">✓ PRESENT</button>
+                    </div>
+                    <div class="roll-item">
+                        <div>
+                            <div class="roll-name">MURASOLI B</div>
+                            <div class="roll-reg">25ITL188 &bull; Department of IT</div>
+                        </div>
+                        <button class="btn-present">✓ PRESENT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #f8fafc;
+        color: #0f172a;
+        padding: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .canvas-container {
+        width: 1540px;
+        background: #ffffff;
+        border: 2px solid #cbd5e1;
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+        position: relative;
+    }
+    .top-banner {
+        border-radius: 12px;
+        padding: 16px 24px;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .top-banner h1 {
+        font-size: 23px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+    .top-banner p {
+        font-size: 13px;
+        font-weight: 500;
+        opacity: 0.95;
+    }
+    .tag-chip {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(4px);
+        padding: 6px 16px;
+        border-radius: 30px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .card {
+        border-radius: 10px;
+        padding: 16px;
+        border: 1.5px solid;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        position: relative;
+    }
+    .card-title {
+        font-size: 14px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+    .card-item {
+        background: #ffffff;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        border: 1px solid rgba(0,0,0,0.08);
+        font-size: 12px;
+        font-weight: 600;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .card-item span {
+        display: block;
+        font-size: 10.5px;
+        color: #64748b;
+        font-weight: 400;
+        margin-top: 2px;
+    }
+    .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+</style>
+
+<style>
+    .banner-db {
+        background: linear-gradient(135deg, #047857 0%, #059669 50%, #10b981 100%);
+    }
+    .db-grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    .dict-box {
+        background: #ffffff;
+        border: 2px solid #cbd5e1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .dict-header {
+        background: #0f172a;
+        color: #ffffff;
+        padding: 9px 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .dict-table-name {
+        font-family: monospace;
+        font-size: 13.5px;
+        font-weight: 700;
+        color: #38bdf8;
+    }
+    .dict-badge {
+        font-size: 10px;
+        background: #334155;
+        padding: 2px 8px;
+        border-radius: 4px;
+        color: #e2e8f0;
+    }
+    .spec-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+    }
+    .spec-table th {
+        background: #f1f5f9;
+        color: #334155;
+        font-weight: 800;
+        padding: 6px 10px;
+        text-align: left;
+        border-bottom: 1.5px solid #cbd5e1;
+        font-size: 10.5px;
+        text-transform: uppercase;
+    }
+    .spec-table td {
+        padding: 6px 10px;
+        border-bottom: 1px solid #f8fafc;
+    }
+    .c-name { font-family: monospace; font-weight: 700; color: #0f172a; }
+    .c-type { font-family: monospace; color: #0284c7; font-weight: 600; font-size: 10.5px; }
+    .c-rule { color: #dc2626; font-weight: 700; font-size: 10px; }
+    .c-desc { color: #475569; font-size: 10.5px; }
+</style>
+</head>
+<body>
+<div class="canvas-container">
+    <div class="top-banner banner-db">
+        <div>
+            <h1>Figure 3.2: Database Structure & Data Dictionary</h1>
+            <p>Physical Table Specifications, Data Types, Primary/Foreign Constraints, and Storage Engine Configurations</p>
+        </div>
+        <div class="tag-chip">Physical Storage Specifications</div>
+    </div>
+
+    <div class="db-grid-2">
+        <!-- TABLE 1 -->
+        <div class="dict-box">
+            <div class="dict-header">
+                <span class="dict-table-name">public.users</span>
+                <span class="dict-badge">PostgreSQL Engine</span>
+            </div>
+            <table class="spec-table">
+                <tr><th>Column</th><th>Type</th><th>Constraint</th><th>Description</th></tr>
+                <tr><td class="c-name">user_id</td><td class="c-type">UUID</td><td class="c-rule">PK, NOT NULL</td><td class="c-desc">Unique identifier</td></tr>
+                <tr><td class="c-name">email</td><td class="c-type">VARCHAR(255)</td><td class="c-rule">UNIQUE, NOT NULL</td><td class="c-desc">College email ID</td></tr>
+                <tr><td class="c-name">full_name</td><td class="c-type">VARCHAR(120)</td><td class="c-rule">NOT NULL</td><td class="c-desc">Student / Faculty name</td></tr>
+                <tr><td class="c-name">roll_number</td><td class="c-type">VARCHAR(20)</td><td class="c-rule">UNIQUE, INDEX</td><td class="c-desc">Academic reg number</td></tr>
+                <tr><td class="c-name">role</td><td class="c-type">role_enum</td><td class="c-rule">NOT NULL</td><td class="c-desc">student, faculty, admin</td></tr>
+            </table>
+        </div>
+
+        <!-- TABLE 2 -->
+        <div class="dict-box">
+            <div class="dict-header">
+                <span class="dict-table-name">public.organizations</span>
+                <span class="dict-badge">PostgreSQL Engine</span>
+            </div>
+            <table class="spec-table">
+                <tr><th>Column</th><th>Type</th><th>Constraint</th><th>Description</th></tr>
+                <tr><td class="c-name">org_id</td><td class="c-type">UUID</td><td class="c-rule">PK, NOT NULL</td><td class="c-desc">Club unique identifier</td></tr>
+                <tr><td class="c-name">name</td><td class="c-type">VARCHAR(150)</td><td class="c-rule">UNIQUE, NOT NULL</td><td class="c-desc">Official club name</td></tr>
+                <tr><td class="c-name">category</td><td class="c-type">org_enum</td><td class="c-rule">NOT NULL</td><td class="c-desc">technical, cell, society</td></tr>
+                <tr><td class="c-name">faculty_advisor_id</td><td class="c-type">UUID</td><td class="c-rule">FK &rarr; users(user_id)</td><td class="c-desc">Designated faculty advisor</td></tr>
+                <tr><td class="c-name">status</td><td class="c-type">VARCHAR(20)</td><td class="c-rule">DEFAULT 'active'</td><td class="c-desc">active, archived</td></tr>
+            </table>
+        </div>
+
+        <!-- TABLE 3 -->
+        <div class="dict-box">
+            <div class="dict-header">
+                <span class="dict-table-name">public.events</span>
+                <span class="dict-badge">PostgreSQL Engine</span>
+            </div>
+            <table class="spec-table">
+                <tr><th>Column</th><th>Type</th><th>Constraint</th><th>Description</th></tr>
+                <tr><td class="c-name">event_id</td><td class="c-type">UUID</td><td class="c-rule">PK, NOT NULL</td><td class="c-desc">Symposium / event ID</td></tr>
+                <tr><td class="c-name">org_id</td><td class="c-type">UUID</td><td class="c-rule">FK &rarr; organizations</td><td class="c-desc">Hosting club ID</td></tr>
+                <tr><td class="c-name">title</td><td class="c-type">VARCHAR(200)</td><td class="c-rule">NOT NULL</td><td class="c-desc">Event headline</td></tr>
+                <tr><td class="c-name">venue</td><td class="c-type">VARCHAR(100)</td><td class="c-rule">NOT NULL, INDEX</td><td class="c-desc">Seminar hall / lab</td></tr>
+                <tr><td class="c-name">capacity</td><td class="c-type">INTEGER</td><td class="c-rule">CHECK (>0)</td><td class="c-desc">Seat cap limit</td></tr>
+            </table>
+        </div>
+
+        <!-- TABLE 4 -->
+        <div class="dict-box">
+            <div class="dict-header">
+                <span class="dict-table-name">public.attendance_records</span>
+                <span class="dict-badge">PostgreSQL Engine</span>
+            </div>
+            <table class="spec-table">
+                <tr><th>Column</th><th>Type</th><th>Constraint</th><th>Description</th></tr>
+                <tr><td class="c-name">attendance_id</td><td class="c-type">UUID</td><td class="c-rule">PK, NOT NULL</td><td class="c-desc">Attendance row key</td></tr>
+                <tr><td class="c-name">event_id</td><td class="c-type">UUID</td><td class="c-rule">FK &rarr; events</td><td class="c-desc">Associated event</td></tr>
+                <tr><td class="c-name">user_id</td><td class="c-type">UUID</td><td class="c-rule">FK &rarr; users</td><td class="c-desc">Student attendee</td></tr>
+                <tr><td class="c-name">marked_by</td><td class="c-type">UUID</td><td class="c-rule">FK &rarr; users</td><td class="c-desc">Coordinator ID</td></tr>
+                <tr><td class="c-name">od_status</td><td class="c-type">VARCHAR(20)</td><td class="c-rule">DEFAULT 'pending'</td><td class="c-desc">pending, endorsed, synced</td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

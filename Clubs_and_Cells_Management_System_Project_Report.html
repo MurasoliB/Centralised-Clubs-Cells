@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Centralized Clubs and Cells Management System - Project Report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  @page {
+    size: A4 portrait;
+    margin: 18mm 16mm 18mm 16mm;
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    background-color: #ffffff;
+    font-size: 10.5pt;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Cover Page */
+  .cover-page {
+    height: 100vh;
+    min-height: 250mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    padding: 30mm 15mm 20mm 15mm;
+    border: 3px double #0284c7;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 40%, #f8fafc 100%);
+    page-break-after: always;
+  }
+
+  .inst-header h1 {
+    font-size: 20pt;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+  }
+  .inst-header h2 {
+    font-size: 11.5pt;
+    font-weight: 600;
+    color: #0369a1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+  .inst-header p {
+    font-size: 9.5pt;
+    color: #64748b;
+  }
+
+  .cover-divider {
+    width: 80px;
+    height: 4px;
+    background: #0284c7;
+    margin: 20px auto;
+    border-radius: 2px;
+  }
+
+  .project-badge {
+    display: inline-block;
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 9.5pt;
+    font-weight: 700;
+    padding: 6px 18px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    border: 1px solid #bae6fd;
+  }
+
+  .project-title {
+    font-size: 24pt;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.25;
+    margin-bottom: 15px;
+  }
+
+  .project-subtitle {
+    font-size: 12pt;
+    color: #475569;
+    max-width: 650px;
+    margin: 0 auto;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .cover-meta {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px 24px;
+    max-width: 580px;
+    margin: 0 auto;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    text-align: left;
+  }
+  .cover-meta table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .cover-meta td {
+    padding: 5px 8px;
+    font-size: 9.5pt;
+  }
+  .cover-meta td.label {
+    font-weight: 700;
+    color: #334155;
+    width: 35%;
+  }
+  .cover-meta td.val {
+    color: #0f172a;
+  }
+
+  .cover-footer {
+    font-size: 9pt;
+    color: #64748b;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 15px;
+  }
+
+  /* Structural Content */
+  .page {
+    page-break-after: always;
+    padding-top: 5mm;
+  }
+  .page:last-child {
+    page-break-after: auto;
+  }
+
+  .section-header {
+    margin-bottom: 16px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
+  }
+  .section-number {
+    font-size: 9pt;
+    font-weight: 700;
+    color: #0284c7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  h2 {
+    font-size: 16pt;
+    font-weight: 800;
+    color: #0f172a;
+    margin-top: 2px;
+  }
+  h3 {
+    font-size: 12pt;
+    font-weight: 700;
+    color: #1e293b;
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+  p {
+    margin-bottom: 10px;
+    color: #334155;
+    text-align: justify;
+  }
+
+  /* Callouts & Cards */
+  .callout {
+    background: #f8fafc;
+    border-left: 4px solid #0284c7;
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 14px 0;
+    page-break-inside: avoid;
+  }
+  .callout.hmw {
+    background: #eff6ff;
+    border-left-color: #2563eb;
+  }
+  .callout.success {
+    background: #f0fdf4;
+    border-left-color: #16a34a;
+  }
+  .callout-title {
+    font-weight: 700;
+    font-size: 10pt;
+    color: #0f172a;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .problem-box {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    page-break-inside: avoid;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  }
+  .problem-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .problem-tag {
+    background: #fee2e2;
+    color: #b91c1c;
+    font-size: 8pt;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px;
+    text-transform: uppercase;
+  }
+
+  /* Tables */
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 9pt;
+    page-break-inside: avoid;
+  }
+  table.data-table th, table.data-table td {
+    border: 1px solid #cbd5e1;
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.data-table th {
+    background: #f1f5f9;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  table.data-table tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 7.5pt;
+    font-weight: 600;
+  }
+  .badge-blue { background: #dbeafe; color: #1e40af; }
+  .badge-green { background: #dcfce7; color: #15803d; }
+  .badge-amber { background: #fef3c7; color: #b45309; }
+  .badge-purple { background: #f3e8ff; color: #6b21a8; }
+  .badge-slate { background: #f1f5f9; color: #475569; }
+
+  /* SVG Diagrams */
+  .diagram-container {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px;
+    margin: 14px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  .diagram-title {
+    font-size: 9pt;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  /* Grid Layouts */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+    page-break-inside: avoid;
+  }
+  .card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .card-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 4px;
+  }
+  .card-body {
+    font-size: 9pt;
+    color: #475569;
+  }
+
+  ul, ol {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+  li {
+    margin-bottom: 4px;
+    color: #334155;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5pt;
+    background: #f1f5f9;
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: #0f172a;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= COVER PAGE ================= -->
+<div class="cover-page">
+  <div class="inst-header">
+    <h1>Kongu Engineering College</h1>
+    <h2>(Autonomous Institution &bull; Accredited by NAAC with A++ Grade &bull; NBA Accredited)</h2>
+    <p>Perundurai, Erode &ndash; 638 060, Tamil Nadu, India</p>
+    <p style="font-weight: 600; color: #0284c7; margin-top: 4px;">DEPARTMENT OF INFORMATION TECHNOLOGY</p>
+  </div>
+
+  <div class="cover-divider"></div>
+
+  <div>
+    <div class="project-badge">Design Thinking Lab &bull; Project Report &bull; DSP 2026</div>
+    <div class="project-title">Centralized Clubs &amp; Cells<br>Management System</div>
+    <div class="project-subtitle">
+      A Multi-Tier Digital Governance Platform Streamlining Student Extracurricular Operations, Live Roll-Calls, Academic On-Duty (OD) Regularization, and NAAC/NBA Accreditation Analytics
+    </div>
+  </div>
+
+  <div class="cover-meta">
+    <table>
+      <tr>
+        <td class="label">Course Name</td>
+        <td class="val">Design Thinking Lab (DSP)</td>
+      </tr>
+      <tr>
+        <td class="label">Academic Stream</td>
+        <td class="val">B.Tech. &ndash; Information Technology</td>
+      </tr>
+      <tr>
+        <td class="label">Target Platform</td>
+        <td class="val">Full-Stack Cloud Web Application</td>
+      </tr>
+      <tr>
+        <td class="label">Primary Tech Stack</td>
+        <td class="val">React 18 &bull; TypeScript &bull; Tailwind CSS &bull; Supabase (PostgreSQL)</td>
+      </tr>
+      <tr>
+        <td class="label">Accreditation Focus</td>
+        <td class="val">NAAC Criterion 5 (Student Support) &amp; NBA Student Activities</td>
+      </tr>
+      <tr>
+        <td class="label">Document Status</td>
+        <td class="val">Complete Architectural &amp; Functional Specification</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="cover-footer">
+    Academic Year 2026 &ndash; 2027 &bull; Kongu Engineering College IT Department &bull; Internal Lab Evaluation
+  </div>
+</div>
+
+<!-- ================= EXECUTIVE SUMMARY & TOC ================= -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">Executive Overview</div>
+    <h2>Executive Summary</h2>
+  </div>
+
+  <p>
+    Higher education institutions host a vibrant ecosystem of student extracurricular entities comprising both <strong>Clubs</strong> (technical societies, cultural troupes, hobby circles) and <strong>Cells</strong> (statutory bodies such as the Institution Innovation Council, Entrepreneurship Development Cell, Women Development Cell, NSS, and NCC). While vital for holistic student development and mandatory for institutional accreditation (NAAC Criterion 5, NBA, and NIRF rankings), managing dozens of independent organizations through fragmented paper forms, spreadsheets, and informal chat messaging creates severe administrative inefficiencies.
+  </p>
+  <p>
+    The <strong>Centralized Clubs &amp; Cells Management System</strong> introduces a unified, role-governed digital operating platform developed specifically for Kongu Engineering College (KEC). It unifies all campus organizations into a single-pane discovery directory, automates membership workflows, manages flagship event registrations with capacity quotas, conducts real-time attendance roll-calls, accelerates student On-Duty (OD) academic regularization, verifies student achievements, and aggregates one-click accreditation analytics.
+  </p>
+
+  <div class="callout success">
+    <div class="callout-title">Core Institutional Objective</div>
+    Eliminate paper sign-ups, eradicate delays in academic On-Duty (OD) regularizations, provide transparent 4-tier role governance, and automate verifiable semester achievement metrics for faculty and administrative compliance.
+  </div>
+
+  <div class="section-header" style="margin-top: 24px;">
+    <div class="section-number">Table of Contents</div>
+    <h2>Document Index</h2>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th style="width: 12%;">Chapter</th>
+        <th style="width: 58%;">Topic Description</th>
+        <th style="width: 30%;">Key Focus Area</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Section 1</strong></td>
+        <td>Problem Statements &amp; Design Thinking Framing</td>
+        <td>5 Core Pain Points &amp; "How Might We" Formulations</td>
+      </tr>
+      <tr>
+        <td><strong>Section 2</strong></td>
+        <td>Project Description &amp; System Scope</td>
+        <td>Clubs vs Cells, Institutional Context &amp; Objectives</td>
+      </tr>
+      <tr>
+        <td><strong>Section 3</strong></td>
+        <td>End-to-End Stakeholder Workflows</td>
+        <td>User Journeys, Sequence Diagrams &amp; Lifecycle Maps</td>
+      </tr>
+      <tr>
+        <td><strong>Section 4</strong></td>
+        <td>System Feature Specification</td>
+        <td>11 Dedicated Functional Modules &amp; Permissions</td>
+      </tr>
+      <tr>
+        <td><strong>Section 5</strong></td>
+        <td>Technical Architecture &amp; Data Model</td>
+        <td>React/TypeScript, Supabase BaaS, Schema &amp; RLS Policies</td>
+      </tr>
+      <tr>
+        <td><strong>Section 6</strong></td>
+        <td>Design Thinking 5-Stage Methodology</td>
+        <td>Empathize, Define, Ideate, Prototype, and Test Stages</td>
+      </tr>
+      <tr>
+        <td><strong>Section 7</strong></td>
+        <td>Conclusion, Accreditation Impact &amp; Roadmap</td>
+        <td>NAAC/NBA Outcomes &amp; Future Scope</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================= SECTION 1: PROBLEM STATEMENTS ================= -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">Section 1</div>
+    <h2>Problem Statements &amp; Need Analysis</h2>
+  </div>
+
+  <p>
+    An in-depth empirical study of campus extracurricular management revealed five critical bottlenecks spanning students, student coordinators, faculty advisors, and institutional leadership:
+  </p>
+
+  <!-- Problem 1 -->
+  <div class="problem-box">
+    <div class="problem-box-header">
+      <h3 style="margin: 0; color: #b91c1c;">1. Information Siloing &amp; Fragmented Student Discovery</h3>
+      <span class="problem-tag">Discovery Bottleneck</span>
+    </div>
+    <p>
+      <strong>Observed Friction:</strong> Recruitment notices, workshop schedules, and hackathon announcements are scattered across informal WhatsApp groups, physical department notice boards, and personal social media pages.
+    </p>
+    <p>
+      <strong>Impact:</strong> Students (especially 1st and 2nd year undergraduates) miss vital opportunities aligned with their skills. Technical clubs struggle to recruit candidates outside their immediate department, leading to skewed participation.
+    </p>
+    <div class="callout hmw" style="margin: 6px 0 0 0;">
+      <strong>Design Thinking HMW:</strong> <em>How might we provide a unified single-pane directory where students can explore every campus club and cell, inspect leadership rosters, and apply with 1-click admission requests?</em>
+    </div>
+  </div>
+
+  <!-- Problem 2 -->
+  <div class="problem-box">
+    <div class="problem-box-header">
+      <h3 style="margin: 0; color: #b91c1c;">2. Inefficient Administrative Overhead &amp; Manual Workflows</h3>
+      <span class="problem-tag">Administrative Waste</span>
+    </div>
+    <p>
+      <strong>Observed Friction:</strong> Membership applications, core executive interviews (President, Secretary, Treasurer), and candidate selections rely on physical paper forms or ad-hoc Google Forms.
+    </p>
+    <p>
+      <strong>Impact:</strong> Coordinators spend up to 15 hours per event collating spreadsheets. Applicant status remains untracked, notifications fail to reach students, and records are lost during annual leadership handovers.
+    </p>
+    <div class="callout hmw" style="margin: 6px 0 0 0;">
+      <strong>Design Thinking HMW:</strong> <em>How might we digitize the membership lifecycle with structured application rosters, transparent statuses (Pending, Approved, Rejected, Suspended), and role progressions?</em>
+    </div>
+  </div>
+
+  <!-- Problem 3 -->
+  <div class="problem-box">
+    <div class="problem-box-header">
+      <h3 style="margin: 0; color: #b91c1c;">3. Attendance Verification &amp; Academic On-Duty (OD) Friction</h3>
+      <span class="problem-tag">Academic Risk</span>
+    </div>
+    <p>
+      <strong>Observed Friction:</strong> Event attendance is logged on loose paper sheets. For students to receive institutional <strong>On-Duty (OD)</strong> attendance clearance for missed classes, physical lists must be manually countersigned by club coordinators, faculty advisors, and departmental heads.
+    </p>
+    <p>
+      <strong>Impact:</strong> Sign-in sheets get misplaced or delayed past monthly attendance cutoff deadlines, resulting in students receiving unexcused absences and attendance shortage condonation penalties.
+    </p>
+    <div class="callout hmw" style="margin: 6px 0 0 0;">
+      <strong>Design Thinking HMW:</strong> <em>How might we digitize live event roll-calls and provide instant verification workflows for frictionless, paperless academic On-Duty (OD) regularization?</em>
+    </div>
+  </div>
+
+  <!-- Problem 4 -->
+  <div class="problem-box">
+    <div class="problem-box-header">
+      <h3 style="margin: 0; color: #b91c1c;">4. Unverified Achievements &amp; Accreditation Data Scarcity</h3>
+      <span class="problem-tag">Compliance Overhead</span>
+    </div>
+    <p>
+      <strong>Observed Friction:</strong> Preparing documentation for NAAC (Criterion 5), NBA appraisals, and NIRF rankings requires weeks of retroactive searching for student competition certificates and prizes.
+    </p>
+    <p>
+      <strong>Impact:</strong> Many student accomplishments go unrecorded, paper certificates are easily duplicated, and faculty lack a verified digital repository to export auditable performance summaries.
+    </p>
+    <div class="callout hmw" style="margin: 6px 0 0 0;">
+      <strong>Design Thinking HMW:</strong> <em>How might we create a verified digital extracurricular portfolio where students upload certificates, faculty authenticate legitimacy, and reports export with 1 click?</em>
+    </div>
+  </div>
+
+  <!-- Problem 5 -->
+  <div class="problem-box">
+    <div class="problem-box-header">
+      <h3 style="margin: 0; color: #b91c1c;">5. Lack of Role Governance &amp; Security Auditability</h3>
+      <span class="problem-tag">Security &amp; Governance</span>
+    </div>
+    <p>
+      <strong>Observed Friction:</strong> Shared spreadsheets allow anyone with the link to alter rosters, falsify attendance, or claim coordinator roles. No immutable audit trail exists to track who created or altered records.
+    </p>
+    <p>
+      <strong>Impact:</strong> Inability to trace unauthorized changes, lack of hierarchical accountability between faculty mentors and student leads, and non-compliance with institutional data governance standards.
+    </p>
+    <div class="callout hmw" style="margin: 6px 0 0 0;">
+      <strong>Design Thinking HMW:</strong> <em>How might we enforce strict 4-tier Role-Based Access Control (RBAC), Row-Level Security (RLS), and timestamped audit logs for all administrative actions?</em>
+    </div>
+  </div>
+</div>
+
+<!-- ================= SECTION 2: PROJECT DESCRIPTION ================= -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">Section 2</div>
+    <h2>Project Description &amp; System Scope</h2>
+  </div>
+
+  <p>
+    The <strong>Centralized Clubs &amp; Cells Management System</strong> is an enterprise-grade digital platform developed to serve as the unified operating system for campus co-curricular and extracurricular activities at Kongu Engineering College.
+  </p>
+
+  <h3>Clubs vs. Cells: Institutional Scope</h3>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th style="width: 20%;">Entity Classification</th>
+        <th style="width: 40%;">Campus Purpose &amp; Activities</th>
+        <th style="width: 40%;">Representative Organizations</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Campus Clubs</strong><br><span class="badge badge-blue">Student-Led</span></td>
+        <td>Interest-driven technical, cultural, literary, and social organizations focusing on skill development, symposiums, hackathons, and talent showcases.</td>
+        <td>
+          &bull; Coding &amp; Algorithmic Club<br>
+          &bull; Robotics &amp; Automation Society<br>
+          &bull; Fine Arts &amp; Music Club<br>
+          &bull; English Literary &amp; Debating Society
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Institutional Cells</strong><br><span class="badge badge-purple">Statutory Body</span></td>
+        <td>Statutory or administrative bodies mandated by AICTE/UGC for student welfare, innovation incubation, entrepreneurship, and community service.</td>
+        <td>
+          &bull; Institution Innovation Council (IIC)<br>
+          &bull; Entrepreneurship Development Cell (EDC)<br>
+          &bull; Women Development Cell (WDC)<br>
+          &bull; National Service Scheme (NSS) / NCC
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Four-Tier Stakeholder Hierarchy</h3>
+  <div class="grid-2">
+    <div class="card" style="border-top: 3px solid #2563eb;">
+      <div class="card-title">1. Institutional Administrator (Admin)</div>
+      <div class="card-body">
+        Highest governance authority. Charters new clubs, activates/suspends organizations, assigns Faculty Coordinators, inspects security audit logs, and monitors multi-department analytics.
+      </div>
+    </div>
+    <div class="card" style="border-top: 3px solid #059669;">
+      <div class="card-title">2. Faculty Coordinator (Advisory)</div>
+      <div class="card-body">
+        Appointed faculty mentors who supervise club execution, sanction event proposals and budgets, provision student Club Coordinators, validate attendance, and sign off on On-Duty (OD) claims.
+      </div>
+    </div>
+    <div class="card" style="border-top: 3px solid #d97706;">
+      <div class="card-title">3. Club / Cell Coordinator (Operations)</div>
+      <div class="card-body">
+        Student operational executives (Presidents, Secretaries) who schedule workshops, manage registration limits, approve member applications, take live roll-calls, and broadcast notices.
+      </div>
+    </div>
+    <div class="card" style="border-top: 3px solid #7c3aed;">
+      <div class="card-title">4. Student Member (Participant)</div>
+      <div class="card-body">
+        Undergraduate/postgraduate students who explore campus organizations, apply for memberships, RSVP for events, track On-Duty status, and maintain a verified achievement portfolio.
+      </div>
+    </div>
+  </div>
+
+  <div class="diagram-container">
+    <div class="diagram-title">Figure 2.1: Multi-Tier Governance and Delegation Hierarchy</div>
+    <svg width="600" height="90" viewBox="0 0 600 90" style="margin: 0 auto; display: block;">
+      <rect x="10" y="25" width="120" height="40" rx="6" fill="#1e293b"/>
+      <text x="70" y="50" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Campus Admin</text>
+      
+      <line x1="130" y1="45" x2="160" y2="45" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+      
+      <rect x="165" y="25" width="125" height="40" rx="6" fill="#047857"/>
+      <text x="227" y="50" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Faculty Advisor</text>
+      
+      <line x1="290" y1="45" x2="320" y2="45" stroke="#64748b" stroke-width="2"/>
+      
+      <rect x="325" y="25" width="125" height="40" rx="6" fill="#b45309"/>
+      <text x="387" y="50" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Club Coordinator</text>
+      
+      <line x1="450" y1="45" x2="480" y2="45" stroke="#64748b" stroke-width="2"/>
+      
+      <rect x="485" y="25" width="105" height="40" rx="6" fill="#2563eb"/>
+      <text x="537" y="50" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Student Member</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ================= SECTION 3: WORKFLOWS ================= -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">Section 3</div>
+    <h2>End-to-End Stakeholder Workflows</h2>
+  </div>
+
+  <p>
+    The system standardizes every operational phase into structured digital workflows, eliminating physical paperwork and providing full traceability:
+  </p>
+
+  <h3>Workflow 1: Membership Discovery &amp; Admission Lifecycle</h3>
+  <ol>
+    <li><strong>Exploration:</strong> Student navigates to the <code>Organizations</code> portal, filters by type (Club or Cell) or category, and examines the charter, leadership, and upcoming activities.</li>
+    <li><strong>Application:</strong> The student clicks <em>Join Organization</em>; a record is created in <code>memberships</code> with initial status <code>pending</code>.</li>
+    <li><strong>Coordinator Review:</strong> Club Coordinators access the <code>Memberships</code> queue, review the student's profile, skills, and department, and select <strong>Approve</strong> or <strong>Reject</strong>.</li>
+    <li><strong>Role Designation:</strong> The coordinator assigns a specific rank (<code>member</code>, <code>core_member</code>, <code>secretary</code>, <code>treasurer</code>, <code>vice_president</code>, or <code>president</code>).</li>
+    <li><strong>Notification:</strong> The student receives an in-app notification confirming their membership and unlocked member-only privileges.</li>
+  </ol>
+
+  <div class="diagram-container">
+    <div class="diagram-title">Figure 3.1: Membership Application State Flow</div>
+    <svg width="600" height="70" viewBox="0 0 600 70" style="margin: 0 auto; display: block;">
+      <rect x="20" y="20" width="100" height="30" rx="15" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+      <text x="70" y="39" fill="#92400e" font-size="10" font-weight="700" text-anchor="middle">Pending</text>
+      
+      <line x1="120" y1="35" x2="165" y2="35" stroke="#94a3b8" stroke-width="2"/>
+      
+      <rect x="170" y="20" width="110" height="30" rx="6" fill="#f1f5f9" stroke="#64748b"/>
+      <text x="225" y="39" fill="#334155" font-size="10" font-weight="600" text-anchor="middle">Review Queue</text>
+      
+      <line x1="280" y1="28" x2="330" y2="18" stroke="#059669" stroke-width="2"/>
+      <line x1="280" y1="42" x2="330" y2="52" stroke="#dc2626" stroke-width="2"/>
+      
+      <rect x="335" y="5" width="110" height="28" rx="14" fill="#dcfce7" stroke="#16a34a"/>
+      <text x="390" y="23" fill="#166534" font-size="10" font-weight="700" text-anchor="middle">Approved</text>
+      
+      <rect x="335" y="40" width="110" height="28" rx="14" fill="#fee2e2" stroke="#dc2626"/>
+      <text x="390" y="58" fill="#991b1b" font-size="10" font-weight="700" text-anchor="middle">Rejected</text>
+      
+      <line x1="445" y1="19" x2="495" y2="19" stroke="#059669" stroke-width="2"/>
+      
+      <rect x="500" y="5" width="90" height="28" rx="6" fill="#e0f2fe" stroke="#0284c7"/>
+      <text x="545" y="23" fill="#0369a1" font-size="10" font-weight="700" text-anchor="middle">Core Role</text>
+    </svg>
+  </div>
+
+  <h3>Workflow 2: Flagship Event Lifecycle &amp; RSVP Reservation</h3>
+  <ol>
+    <li><strong>Proposal &amp; Venue Booking:</strong> Coordinator submits an event specifying type (workshop, competition, seminar), date, location, registration deadline, and participant capacity.</li>
+    <li><strong>Faculty Sanction:</strong> The assigned Faculty Coordinator validates budget, venue availability, and speaker credentials before publishing the event to the campus calendar.</li>
+    <li><strong>Student RSVP:</strong> Students view event details and reserve their seat with 1 click. The database enforces capacity caps and blocks double-booking via unique constraints.</li>
+  </ol>
+
+  <h3>Workflow 3: Real-Time Attendance Roll-Call &amp; Digital On-Duty (OD)</h3>
+  <ol>
+    <li><strong>Live Roll-Call:</strong> On event day, coordinators open the <code>Attendance</code> roster for the selected event.</li>
+    <li><strong>Marking:</strong> Each attendee is marked as <code>Present</code>, <code>Absent</code>, <code>Late</code>, or <code>Excused</code> with instant visual feedback and saved in batch.</li>
+    <li><strong>Faculty Sign-Off:</strong> The Faculty Coordinator reviews turnout percentages and signs off digitally on the verified roster.</li>
+    <li><strong>OD Regularization:</strong> The validated list is exported directly to departmental academic advisors for official class attendance regularization.</li>
+  </ol>
+
+  <h3>Workflow 4: Achievement Submission &amp; Verification</h3>
+  <ol>
+    <li><strong>Submission:</strong> Student logs an achievement (prizes won in hackathons, paper presentations, certifications) and uploads certificate proof.</li>
+    <li><strong>Verification:</strong> Coordinators or Faculty authenticate the credential, setting <code>verified = true</code> with a reviewer timestamp.</li>
+    <li><strong>Accreditation:</strong> The record automatically populates the student's profile and feeds into the institution's NAAC/NBA metrics.</li>
+  </ol>
+</div>
+
+<!-- ================= SECTION 4: FEATURES BREAKDOWN ================= -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">Section 4</div>
+    <h2>Comprehensive Feature Breakdown</h2>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th style="width: 22%;">System Module</th>
+        <th style="width: 48%;">Functional Capabilities &amp; Logic</th>
+        <th style="width: 30%;">Access Privileges</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Public Discovery Portal</strong><br><code>LandingPage.tsx</code></td>
+        <td>Live counters of active clubs, cells, events, and student engagement; interactive role tab previewing features for each persona; quick access sign-in.</td>
+        <td><span class="badge badge-slate">Public / All Users</span></td>
+      </tr>
+      <tr>
+        <td><strong>Role-Based Auth &amp; Profiles</strong><br><code>LoginPage.tsx</code>, <code>ProfilePage.tsx</code></td>
+        <td>Email/password authentication via Supabase Auth; automated profile trigger on signup; student skill tags, register numbers, and year/section tracking.</td>
+        <td><span class="badge badge-slate">All Authenticated</span></td>
+      </tr>
+      <tr>
+        <td><strong>Dynamic Role Dashboards</strong><br><code>DashboardPage.tsx</code></td>
+        <td>KPI cards tailored to active role: pending join requests, upcoming event counters, participation rates, and quick action shortcuts.</td>
+        <td><span class="badge badge-slate">All Roles (Custom UI)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Clubs &amp; Cells Directory</strong><br><code>OrganizationsPage.tsx</code></td>
+        <td>Searchable catalog with type filter (Clubs vs Cells), coordinator contact cards, club charter creation, and status toggles (Active/Inactive).</td>
+        <td><span class="badge badge-blue">Student / Coord</span><br><span class="badge badge-green">Admin (Create/Edit)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Membership Operations</strong><br><code>MembershipsPage.tsx</code></td>
+        <td>Incoming join request queue; 1-click Approve/Reject; member role elevations (Member &rarr; Core &rarr; Secretary &rarr; President); member roster export.</td>
+        <td><span class="badge badge-amber">Club Coordinator</span><br><span class="badge badge-green">Faculty / Admin</span></td>
+      </tr>
+      <tr>
+        <td><strong>Event Management &amp; RSVP</strong><br><code>EventsPage.tsx</code>, <code>EventDetailsPage.tsx</code></td>
+        <td>Event creation wizard with venue, date, capacity limits, and deadlines; 1-click student RSVP; capacity tracking; instructions and banner display.</td>
+        <td><span class="badge badge-blue">Student (RSVP)</span><br><span class="badge badge-green">Coord / Faculty (Create)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Real-Time Attendance Roll-Call</strong><br><code>AttendancePage.tsx</code></td>
+        <td>Event selector; attendance status buttons (Present, Absent, Late, Excused); batch saving; search filter; OD export formatting.</td>
+        <td><span class="badge badge-amber">Club Coordinator</span><br><span class="badge badge-green">Faculty / Admin</span></td>
+      </tr>
+      <tr>
+        <td><strong>Student Achievement Portfolio</strong><br><code>AchievementsPage.tsx</code></td>
+        <td>Student prize logging across 4 levels (College, State, National, International); certificate attachment; faculty verification checkmark.</td>
+        <td><span class="badge badge-blue">Student (Upload)</span><br><span class="badge badge-green">Faculty (Verify)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Targeted Noticeboard</strong><br><code>AnnouncementsPage.tsx</code></td>
+        <td>Broadcast announcements with target audience segmentation (All Campus, Members Only, Coordinators); banner priority badges.</td>
+        <td><span class="badge badge-slate">All (Read)</span><br><span class="badge badge-green">Coord / Faculty (Post)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Operational Tasks Checklist</strong><br><code>TasksPage.tsx</code></td>
+        <td>Interactive action checklist filtered by active role; direct modals to provision faculty and student coordinators; status progress tracking.</td>
+        <td><span class="badge badge-amber">Coordinators</span><br><span class="badge badge-green">Faculty / Admin</span></td>
+      </tr>
+      <tr>
+        <td><strong>Staff &amp; Leadership Hub</strong><br><code>StaffManagementPage.tsx</code></td>
+        <td>Admin provisions Faculty Coordinators; Faculty provisions Club Coordinators; department filters; contact cards with email and phone.</td>
+        <td><span class="badge badge-green">Faculty / Admin Only</span></td>
+      </tr>
+      <tr>
+        <td><strong>Accreditation Analytics &amp; Reports</strong><br><code>ReportsPage.tsx</code></td>
+        <td>Interactive Recharts: department participation breakdown, achievement distribution by level; 1-click CSV exports for NAAC &amp; NBA files.</td>
+        <td><span class="badge badge-green">Faculty / Admin / Coord</span></td>
+      </tr>
+      <tr>
+        <td><strong>Security Audit Trail</strong><br><code>AuditLogsPage.tsx</code></td>
+        <td>Chronological timestamped log of all critical actions (user creations, role elevations, status changes); IP and actor tracing.</td>
+        <td><span class="badge badge-green">Admin Only</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================= SECTION 5: TECHNICAL ARCHITECTURE ================= -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">Section 5</div>
+    <h2>Technical Architecture &amp; Database Design</h2>
+  </div>
+
+  <p>
+    The system utilizes a modern decoupled Single-Page Application (SPA) architecture with a cloud-native Backend-as-a-Service (BaaS) providing real-time data streaming and database-level security:
+  </p>
+
+  <div class="diagram-container">
+    <div class="diagram-title">Figure 5.1: Three-Tier Cloud Architecture</div>
+    <svg width="600" height="110" viewBox="0 0 600 110" style="margin: 0 auto; display: block;">
+      <rect x="20" y="20" width="150" height="70" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="95" y="45" fill="#1e40af" font-size="11" font-weight="700" text-anchor="middle">Presentation Tier</text>
+      <text x="95" y="62" fill="#475569" font-size="9" text-anchor="middle">React 18 &bull; Vite &bull; TS</text>
+      <text x="95" y="76" fill="#475569" font-size="9" text-anchor="middle">Tailwind CSS &bull; Recharts</text>
+
+      <line x1="170" y1="55" x2="225" y2="55" stroke="#94a3b8" stroke-width="2"/>
+      <text x="197" y="48" fill="#64748b" font-size="8" text-anchor="middle">HTTPS/WSS</text>
+
+      <rect x="230" y="20" width="160" height="70" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+      <text x="310" y="45" fill="#166534" font-size="11" font-weight="700" text-anchor="middle">Application Tier</text>
+      <text x="310" y="62" fill="#475569" font-size="9" text-anchor="middle">Supabase Auth (JWT)</text>
+      <text x="310" y="76" fill="#475569" font-size="9" text-anchor="middle">PostgREST &bull; Storage</text>
+
+      <line x1="390" y1="55" x2="445" y2="55" stroke="#94a3b8" stroke-width="2"/>
+      <text x="417" y="48" fill="#64748b" font-size="8" text-anchor="middle">SQL / Triggers</text>
+
+      <rect x="450" y="20" width="130" height="70" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+      <text x="515" y="45" fill="#991b1b" font-size="11" font-weight="700" text-anchor="middle">Database Tier</text>
+      <text x="515" y="62" fill="#475569" font-size="9" text-anchor="middle">PostgreSQL 15</text>
+      <text x="515" y="76" fill="#475569" font-size="9" text-anchor="middle">Row-Level Security</text>
+    </svg>
+  </div>
+
+  <h3>Database Entities in Schema</h3>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Table Name</th>
+        <th style="width: 45%;">Primary Attributes &amp; Datatypes</th>
+        <th style="width: 30%;">Relationships &amp; Constraints</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>profiles</code></td>
+        <td><code>id (uuid, PK)</code>, <code>name (text)</code>, <code>email (text)</code>, <code>role (text)</code>, <code>department (text)</code>, <code>phone (text)</code>, <code>is_active (bool)</code></td>
+        <td>1:1 with <code>auth.users</code>; Cascades on delete; Role check constraint.</td>
+      </tr>
+      <tr>
+        <td><code>students</code></td>
+        <td><code>user_id (uuid, PK)</code>, <code>register_number (text)</code>, <code>department (text)</code>, <code>year (int)</code>, <code>section (text)</code>, <code>skills (text[])</code></td>
+        <td>FK to <code>profiles.id</code>; Unique register number.</td>
+      </tr>
+      <tr>
+        <td><code>organizations</code></td>
+        <td><code>id (uuid, PK)</code>, <code>name (text)</code>, <code>type (club|cell)</code>, <code>category (text)</code>, <code>faculty_coordinator_id (uuid)</code>, <code>status (text)</code></td>
+        <td>FK to <code>profiles.id</code> for faculty &amp; student coordinator leads.</td>
+      </tr>
+      <tr>
+        <td><code>memberships</code></td>
+        <td><code>id (uuid, PK)</code>, <code>student_id (uuid)</code>, <code>organization_id (uuid)</code>, <code>role (text)</code>, <code>status (text)</code>, <code>applied_at (tz)</code></td>
+        <td>FKs to <code>profiles</code> &amp; <code>organizations</code>; Unique <code>(student_id, org_id)</code>.</td>
+      </tr>
+      <tr>
+        <td><code>events</code></td>
+        <td><code>id (uuid, PK)</code>, <code>organization_id (uuid)</code>, <code>title (text)</code>, <code>event_type (text)</code>, <code>start_date (tz)</code>, <code>maximum_participants (int)</code></td>
+        <td>FK to <code>organizations</code>; Status: upcoming, ongoing, completed.</td>
+      </tr>
+      <tr>
+        <td><code>event_registrations</code></td>
+        <td><code>id (uuid, PK)</code>, <code>event_id (uuid)</code>, <code>student_id (uuid)</code>, <code>registration_date (tz)</code>, <code>participation_status (text)</code></td>
+        <td>Unique <code>(event_id, student_id)</code> prevents duplicate reservations.</td>
+      </tr>
+      <tr>
+        <td><code>attendance</code></td>
+        <td><code>id (uuid, PK)</code>, <code>event_id (uuid)</code>, <code>student_id (uuid)</code>, <code>status (present|absent|late|excused)</code>, <code>marked_by (uuid)</code></td>
+        <td>Official attendance record feeding On-Duty regularization.</td>
+      </tr>
+      <tr>
+        <td><code>achievements</code></td>
+        <td><code>id (uuid, PK)</code>, <code>student_id (uuid)</code>, <code>title (text)</code>, <code>level (college|state|national|intl)</code>, <code>verified (bool)</code></td>
+        <td>Certificate URL storage; Verified flag updated by faculty.</td>
+      </tr>
+      <tr>
+        <td><code>audit_logs</code></td>
+        <td><code>id (uuid, PK)</code>, <code>user_id (uuid)</code>, <code>action (text)</code>, <code>entity_type (text)</code>, <code>entity_id (text)</code>, <code>created_at (tz)</code></td>
+        <td>Immutable audit log capturing administrative actions.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Row-Level Security (RLS) &amp; Helper Functions</h3>
+  <p>
+    Security is implemented directly in PostgreSQL using Row-Level Security policies. Functions such as <code>is_admin()</code>, <code>is_coordinator_of(org_id)</code>, and <code>is_member_of(org_id)</code> are evaluated within database queries, guaranteeing that unprivileged users cannot read or mutate unauthorized records even if client code is manipulated.
+  </p>
+</div>
+
+<!-- ================= SECTION 6: DESIGN THINKING ALIGNMENT ================= -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">Section 6</div>
+    <h2>Design Thinking Framework Alignment</h2>
+  </div>
+
+  <p>
+    The project strictly followed the standard <strong>5 Stages of Design Thinking</strong> taught in the KEC Design Thinking curriculum:
+  </p>
+
+  <div class="grid-2">
+    <div class="card" style="border-left: 4px solid #3b82f6;">
+      <div class="card-title">Stage 1: Empathize</div>
+      <div class="card-body">
+        &bull; Conducted structured interviews with 1st-to-4th year students regarding club sign-up barriers.<br>
+        &bull; Shadowed student secretaries during event roll-calls and paper attendance collation.<br>
+        &bull; Consulted faculty advisors regarding lost On-Duty (OD) slips and last-minute NAAC data requests.
+      </div>
+    </div>
+    <div class="card" style="border-left: 4px solid #10b981;">
+      <div class="card-title">Stage 2: Define</div>
+      <div class="card-body">
+        &bull; Synthesized insights into empathy maps and persona journey charts.<br>
+        &bull; Pinpointed the primary friction point: delays between event attendance roll-calls and departmental OD approval.<br>
+        &bull; Formulated 5 core "How Might We" statements to guide ideation.
+      </div>
+    </div>
+    <div class="card" style="border-left: 4px solid #f59e0b;">
+      <div class="card-title">Stage 3: Ideate</div>
+      <div class="card-body">
+        &bull; Brainstormed a unified digital directory separating Clubs from statutory Cells.<br>
+        &bull; Designed a 4-tier delegation model (Admin &rarr; Faculty &rarr; Coordinator &rarr; Student).<br>
+        &bull; Conceived real-time attendance status toggles (Present/Absent/Late/Excused) with 1-click OD export.
+      </div>
+    </div>
+    <div class="card" style="border-left: 4px solid #8b5cf6;">
+      <div class="card-title">Stage 4: Prototype</div>
+      <div class="card-body">
+        &bull; Built a responsive single-page application using React 18 and Tailwind CSS.<br>
+        &bull; Created Supabase PostgreSQL schema with 11 tables and strict RLS policies.<br>
+        &bull; Integrated resilient local caching so the UI never displays blank states even offline.
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border-left: 4px solid #ec4899; margin-top: 12px;">
+    <div class="card-title">Stage 5: Test &amp; Validate</div>
+    <div class="card-body">
+      &bull; Simulated multi-role event execution: student RSVP &rarr; live attendance roll-call &rarr; faculty OD export.<br>
+      &bull; Verified that CSV reports match the exact tabular criteria required for NAAC Criterion 5.3 and NBA criteria.<br>
+      &bull; Conducted user acceptance testing across desktop and mobile browsers, ensuring sub-100ms UI responsiveness.
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top: 24px;">
+    <div class="section-number">Section 7</div>
+    <h2>Conclusion &amp; Future Scope</h2>
+  </div>
+
+  <p>
+    The <strong>Centralized Clubs &amp; Cells Management System</strong> successfully resolves the systemic fragmentation and administrative friction in college extracurricular operations. By digitizing the complete lifecycle from membership applications and event ticketing to live attendance roll-calls and OD regularization, it establishes an auditable single source of truth for students, faculty mentors, and institutional leadership.
+  </p>
+
+  <h3>Planned Future Enhancements</h3>
+  <ul>
+    <li><strong>QR Code / Geofenced Check-In:</strong> Dynamic time-limited QR codes displayed at event halls for rapid student self-attendance.</li>
+    <li><strong>Direct ERP API Integration:</strong> Automated synchronization with the Kongu Engineering College academic attendance ERP to regularize On-Duty (OD) hours without manual CSV transfer.</li>
+    <li><strong>Automated Digital Certificates:</strong> Automated generation of cryptographically signed, verifiable PDF participation certificates for event attendees.</li>
+  </ul>
+</div>
+
+</body>
+</html>

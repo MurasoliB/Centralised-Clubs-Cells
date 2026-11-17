@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #f8fafc;
+        color: #0f172a;
+        padding: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .canvas-container {
+        width: 1540px;
+        background: #ffffff;
+        border: 2px solid #cbd5e1;
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+        position: relative;
+    }
+    .top-banner {
+        border-radius: 12px;
+        padding: 16px 24px;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .top-banner h1 {
+        font-size: 23px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+    .top-banner p {
+        font-size: 13px;
+        font-weight: 500;
+        opacity: 0.95;
+    }
+    .tag-chip {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(4px);
+        padding: 6px 16px;
+        border-radius: 30px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .card {
+        border-radius: 10px;
+        padding: 16px;
+        border: 1.5px solid;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        position: relative;
+    }
+    .card-title {
+        font-size: 14px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+    .card-item {
+        background: #ffffff;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        border: 1px solid rgba(0,0,0,0.08);
+        font-size: 12px;
+        font-weight: 600;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .card-item span {
+        display: block;
+        font-size: 10.5px;
+        color: #64748b;
+        font-weight: 400;
+        margin-top: 2px;
+    }
+    .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+</style>
+
+<style>
+    .banner-erd {
+        background: linear-gradient(135deg, #b91c1c 0%, #dc2626 50%, #ea580c 100%);
+    }
+    .erd-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .table-card-erd {
+        background: #ffffff;
+        border: 2px solid #cbd5e1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.06);
+    }
+    .table-head-erd {
+        padding: 8px 12px;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 800;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        letter-spacing: 0.5px;
+    }
+    .head-blue { background: #2563eb; }
+    .head-green { background: #059669; }
+    .head-amber { background: #d97706; }
+    .head-purple { background: #7c3aed; }
+    .head-teal { background: #0d9488; }
+    .head-rose { background: #e11d48; }
+    .table-head-erd span {
+        font-size: 9.5px;
+        background: rgba(255,255,255,0.25);
+        padding: 2px 6px;
+        border-radius: 3px;
+    }
+    .erd-fields {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+    }
+    .erd-fields td {
+        padding: 6px 10px;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    .key-badge {
+        font-size: 9px;
+        font-weight: 800;
+        padding: 2px 5px;
+        border-radius: 3px;
+    }
+    .pk-badge { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; }
+    .fk-badge { background: #e0e7ff; color: #4338ca; border: 1px solid #a5b4fc; }
+    .f-name { font-weight: 700; color: #0f172a; }
+    .f-type { text-align: right; color: #64748b; font-family: monospace; font-size: 10px; }
+    .rel-summary-bar {
+        margin-top: 18px;
+        background: #f8fafc;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 10px;
+        padding: 12px 20px;
+        display: flex;
+        justify-content: space-around;
+        font-size: 11.5px;
+        font-weight: 700;
+        color: #1e293b;
+    }
+    .rel-chip {
+        background: #ffffff;
+        border: 1px solid #94a3b8;
+        border-radius: 6px;
+        padding: 4px 12px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+</style>
+</head>
+<body>
+<div class="canvas-container">
+    <div class="top-banner banner-erd">
+        <div>
+            <h1>Figure 3.1: Entity Relationship Diagram (ERD)</h1>
+            <p>PostgreSQL Relational Schema with Primary Keys, Foreign Keys, and Cardinality Constraints</p>
+        </div>
+        <div class="tag-chip">Relational Data Model</div>
+    </div>
+
+    <div class="erd-grid-3">
+        <!-- 1. USERS -->
+        <div class="table-card-erd">
+            <div class="table-head-erd head-blue">USERS <span>Primary Actor</span></div>
+            <table class="erd-fields">
+                <tr><td><span class="key-badge pk-badge">PK</span></td><td class="f-name">user_id</td><td class="f-type">UUID</td></tr>
+                <tr><td></td><td class="f-name">email</td><td class="f-type">VARCHAR(255)</td></tr>
+                <tr><td></td><td class="f-name">full_name</td><td class="f-type">VARCHAR(120)</td></tr>
+                <tr><td></td><td class="f-name">roll_number</td><td class="f-type">VARCHAR(20)</td></tr>
+                <tr><td></td><td class="f-name">role</td><td class="f-type">user_role_enum</td></tr>
+                <tr><td></td><td class="f-name">department</td><td class="f-type">VARCHAR(50)</td></tr>
+                <tr><td></td><td class="f-name">created_at</td><td class="f-type">TIMESTAMP</td></tr>
+            </table>
+        </div>
+
+        <!-- 2. ORGANIZATIONS -->
+        <div class="table-card-erd">
+            <div class="table-head-erd head-green">ORGANIZATIONS <span>Clubs & Cells</span></div>
+            <table class="erd-fields">
+                <tr><td><span class="key-badge pk-badge">PK</span></td><td class="f-name">org_id</td><td class="f-type">UUID</td></tr>
+                <tr><td></td><td class="f-name">name</td><td class="f-type">VARCHAR(150)</td></tr>
+                <tr><td></td><td class="f-name">category</td><td class="f-type">org_type_enum</td></tr>
+                <tr><td><span class="key-badge fk-badge">FK</span></td><td class="f-name">faculty_advisor_id</td><td class="f-type">UUID</td></tr>
+                <tr><td></td><td class="f-name">description</td><td class="f-type">TEXT</td></tr>
+                <tr><td></td><td class="f-name">status</td><td class="f-type">VARCHAR(20)</td></tr>
+                <tr><td></td><td class="f-name">created_at</td><td class="f-type">TIMESTAMP</td></tr>
+            </table>
+        </div>
+
+        <!-- 3. MEMBERSHIPS -->
+        <div class="table-card-erd">
+            <div class="table-head-erd head-amber">MEMBERSHIPS <span>Associative</span></div>
+            <table class="erd-fields">
+                <tr><td><span class="key-badge pk-badge">PK</span></td><td class="f-name">membership_id</td><td class="f-type">UUID</td></tr>
+                <tr><td><span class="key-badge fk-badge">FK</span></td><td class="f-name">user_id</td><td class="f-type">UUID</td></tr>
+                <tr><td><span class="key-badge fk-badge">FK</span></td><td class="f-name">org_id</td><td class="f-type">UUID</td></tr>
+                <tr><td></td><td class="f-name">role_in_club</td><td class="f-type">VARCHAR(50)</td></tr>
+                <tr><td></td><td class="f-name">status</td><td class="f-type">member_status</td></tr>
+                <tr><td></td><td class="f-name">applied_at</td><td class="f-type">TIMESTAMP</td></tr>
+            </table>
+        </div>
+
+        <!-- 4. EVENTS -->
+        <div class="table-card-erd">
+            <div class="table-head-erd head-purple">EVENTS <span>Transactional</span></div>
+            <table class="erd-fields">
+                <tr><td><span class="key-badge pk-badge">PK</span></td><td class="f-name">event_id</td><td class="f-type">UUID</td></tr>
+                <tr><td><span class="key-badge fk-badge">FK</span></td><td class="f-name">org_id</td><td class="f-type">UUID</td></tr>
+                <tr><td></td><td class="f-name">title</td><td class="f-type">VARCHAR(200)</td></tr>
+                <tr><td></td><td class="f-name">venue</td><td class="f-type">VARCHAR(100)</td></tr>
+                <tr><td></td><td class="f-name">event_date</td><td class="f-type">TIMESTAMP</td></tr>
+                <tr><td></td><td class="f-name">capacity</td><td class="f-type">INTEGER</td></tr>
+                <tr><td></td><td class="f-name">status</td><td class="f-type">VARCHAR(20)</td></tr>
+            </table>
+        </div>
+
+        <!-- 5. REGISTRATIONS -->
+        <div class="table-card-erd">
+            <div class="table-head-erd head-teal">REGISTRATIONS <span>RSVP Ledger</span></div>
+            <table class="erd-fields">
+                <tr><td><span class="key-badge pk-badge">PK</span></td><td class="f-name">registration_id</td><td class="f-type">UUID</td></tr>
+                <tr><td><span class="key-badge fk-badge">FK</span></td><td class="f-name">event_id</td><td class="f-type">UUID</td></tr>
+                <tr><td><span class="key-badge fk-badge">FK</span></td><td class="f-name">user_id</td><td class="f-type">UUID</td></tr>
+                <tr><td></td><td class="f-name">ticket_code</td><td class="f-type">VARCHAR(64)</td></tr>
+                <tr><td></td><td class="f-name">status</td><td class="f-type">VARCHAR(20)</td></tr>
+                <tr><td></td><td class="f-name">registered_at</td><td class="f-type">TIMESTAMP</td></tr>
+            </table>
+        </div>
+
+        <!-- 6. ATTENDANCE_RECORDS -->
+        <div class="table-card-erd">
+            <div class="table-head-erd head-rose">ATTENDANCE <span>Audit Ledger</span></div>
+            <table class="erd-fields">
+                <tr><td><span class="key-badge pk-badge">PK</span></td><td class="f-name">attendance_id</td><td class="f-type">UUID</td></tr>
+                <tr><td><span class="key-badge fk-badge">FK</span></td><td class="f-name">event_id</td><td class="f-type">UUID</td></tr>
+                <tr><td><span class="key-badge fk-badge">FK</span></td><td class="f-name">user_id</td><td class="f-type">UUID</td></tr>
+                <tr><td><span class="key-badge fk-badge">FK</span></td><td class="f-name">marked_by</td><td class="f-type">UUID</td></tr>
+                <tr><td></td><td class="f-name">marked_at</td><td class="f-type">TIMESTAMP</td></tr>
+                <tr><td></td><td class="f-name">od_status</td><td class="f-type">VARCHAR(20)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="rel-summary-bar">
+        <div class="rel-chip">USERS (1) ────&lt; (M) MEMBERSHIPS</div>
+        <div class="rel-chip">ORGANIZATIONS (1) ────&lt; (M) MEMBERSHIPS</div>
+        <div class="rel-chip">ORGANIZATIONS (1) ────&lt; (M) EVENTS</div>
+        <div class="rel-chip">EVENTS (1) ────&lt; (M) REGISTRATIONS</div>
+        <div class="rel-chip">EVENTS (1) ────&lt; (M) ATTENDANCE</div>
+    </div>
+</div>
+</body>
+</html>
